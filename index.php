@@ -1,5 +1,8 @@
 <?php
+use Clases\Estudiante;
+use Clases\Programa;
 include_once "menu.php";
+include_once "config/autoload.php";
 
 ?>
 <table border="1">
@@ -11,12 +14,38 @@ include_once "menu.php";
         <th colspan="2">&nbsp;</th>
     </tr>
     <!-- TODO: cargar datos de los estudiantes -->
-    <tr>
-        <td>1</td>
-        <td>Nombre</td>
-        <td>Apellidos</td>
-        <td>Nombre Programa</td>
-        <td><a href="#">Actualizar</a></td>
-        <td><a href="#">Eliminar</a></td>
-    </tr>
+
+    <?php
+
+$estudiante = new Estudiante("","","","","","");
+$estudiantes = $estudiante->MostrarEstudiante();
+
+/* var_dump($arrDatos);*/
+/*Recorremos todos los resultados, ya no hace falta invocar más a fetchAll como si fuera fetch...*/
+foreach ($estudiantes as $est) {
+     echo '<tr>';
+     $programa= new Programa("","");
+     $programas = $programa->buscarProgramas($est['id_pa']);
+     echo '<td >' . $est['id'] . '</td>';
+     echo '<td >' . $est['nombres'] . '</td>';
+     echo '<td >' . $est['apellidos'] . '</td>';
+     echo '<td >' .$programas['nombre']. '</td>';
+ 
+
+     echo '<td>
+               <a href="actualizar.php?id='.$est['id'].'" id="actualizar">Actualizar   
+                             </a>
+
+              </td>';
+              echo '<td>
+               <a href="eliminar.php?id='.$est['id'].'" id="eliminar">Eliminar   
+                             </a>
+
+              </td>';
+     echo ' </tr>';
+
+ }
+?>
+
+ 
 </table>

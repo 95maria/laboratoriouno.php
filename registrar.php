@@ -14,7 +14,7 @@ include_once "menu.php";
         <input type="email" name="correo" placeholder="Email"/><br>
         <select name="id_pa">
             <?php
-            $programa = new Programa();
+            $programa = new Programa("","");
             $programas = $programa->verProgramas();
             foreach ($programas as $programa) {
                 echo "<option value='" . $programa["id"] . "'>" . $programa["nombre"] . "</option>";
